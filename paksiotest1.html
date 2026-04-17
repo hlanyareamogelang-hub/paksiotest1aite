@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloom & Grace | Elegant Fashion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background-image: url('https://kimi-web-img.moonshot.cn/img/static.vecteezy.com/01de961fa3ccf02cd7a67c6d639d8527c8580157.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: #4a4a4a;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(2px);
+            z-index: -1;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 167, 167, 0.3);
+        }
+
+        .logo {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5rem;
+            color: #d4a5a5;
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #8b6b6b;
+            font-size: 1.1rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #d4a5a5;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cart-icon {
+            font-size: 1.3rem;
+            color: #d4a5a5;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 20px 50px;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: fadeInUp 1.5s ease;
+        }
+
+        .hero-subtitle {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            color: #d4a5a5;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            color: #5a4a4a;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+
+        .hero-title span {
+            font-style: italic;
+            color: #d4a5a5;
+        }
+
+        .hero-description {
+            font-size: 1.3rem;
+            color: #7a6a6a;
+            margin-bottom: 40px;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 50px;
+            background: linear-gradient(135deg, #d4a5a5 0%, #c99595 100%);
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            border-radius: 50px;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 15px rgba(212, 167, 167, 0.3);
+            border: 2px solid transparent;
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            border-color: #d4a5a5;
+            color: #d4a5a5;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 167, 167, 0.4);
+        }
+
+        /* Floating Petals Animation */
+        .petal {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: rgba(212, 167, 167, 0.3);
+            border-radius: 50% 0 50% 50%;
+            animation: float 15s infinite linear;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Collection Section */
+        .collection {
+            padding: 100px 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-subtitle {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5rem;
+            color: #d4a5a5;
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #5a4a4a;
+            font-weight: 400;
+            letter-spacing: 3px;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #d4a5a5, transparent);
+            margin: 20px auto;
+        }
+
+        /* Product Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+            padding: 0 20px;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(212, 167, 167, 0.15);
+            transition: all 0.4s ease;
+            position: relative;
+            border: 1px solid rgba(212, 167, 167, 0.2);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(212, 167, 167, 0.25);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 30px;
+            text-align: center;
+            background: white;
+        }
+
+        .product-category {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.5rem;
+            color: #d4a5a5;
+            margin-bottom: 5px;
+        }
+
+        .product-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: #5a4a4a;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            color: #8b6b6b;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .add-to-cart {
+            background: transparent;
+            border: 2px solid #d4a5a5;
+            color: #d4a5a5;
+            padding: 12px 30px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .add-to-cart:hover {
+            background: #d4a5a5;
+            color: white;
+        }
+
+        /* Elegant Quote Section */
+        .quote-section {
+            padding: 100px 50px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.6);
+            margin: 50px 0;
+            position: relative;
+        }
+
+        .quote-section::before,
+        .quote-section::after {
+            content: '❦';
+            font-size: 3rem;
+            color: #d4a5a5;
+            opacity: 0.5;
+            position: absolute;
+        }
+
+        .quote-section::before {
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .quote-section::after {
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .quote-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            color: #5a4a4a;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.4;
+        }
+
+        .quote-author {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: #8b6b6b;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 50px;
+            text-align: center;
+            border-top: 1px solid rgba(212, 167, 167, 0.3);
+        }
+
+        .footer-logo {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5rem;
+            color: #d4a5a5;
+            margin-bottom: 20px;
+        }
+
+        .footer-text {
+            color: #8b6b6b;
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .social-links {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .social-links a {
+            color: #d4a5a5;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: scale(1.2);
+            color: #c99595;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .quote-text {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Petals -->
+    <div class="petal" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="petal" style="left: 30%; animation-delay: 3s;"></div>
+    <div class="petal" style="left: 50%; animation-delay: 6s;"></div>
+    <div class="petal" style="left: 70%; animation-delay: 9s;"></div>
+    <div class="petal" style="left: 90%; animation-delay: 12s;"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo">Bloom & Grace</a>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#collection">Collection</a></li>
+            <li><a href="#about">Our Story</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="cart-icon">🌸</div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <p class="hero-subtitle">Welcome to</p>
+            <h1 class="hero-title">Elegance & <span>Grace</span></h1>
+            <p class="hero-description">Discover our curated collection of timeless pieces, where every thread tells a story of sophistication and feminine charm.</p>
+            <a href="#collection" class="cta-button">Explore Collection</a>
+        </div>
+    </section>
+
+    <!-- Quote Section -->
+    <section class="quote-section">
+        <p class="quote-text">"Elegance is the only beauty that never fades"</p>
+        <p class="quote-author">— Audrey Hepburn</p>
+    </section>
+
+    <!-- Collection Section -->
+    <section class="collection" id="collection">
+        <div class="section-header fade-in">
+            <p class="section-subtitle">Curated Selection</p>
+            <h2 class="section-title">The Essentials</h2>
+        </div>
+
+        <div class="products-grid">
+            <!-- Dress -->
+            <div class="product-card fade-in">
+                <img src="https://kimi-web-img.moonshot.cn/img/thumbs.dreamstime.com/c367e14e41f5a6f4a122c2d14bfe0272efa1f0e5.jpg" alt="Elegant Black Evening Dress" class="product-image">
+                <div class="product-info">
+                    <p class="product-category">The Classic</p>
+                    <h3 class="product-name">Midnight Silk Gown</h3>
+                    <p class="product-price">$485.00</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Shoes -->
+            <div class="product-card fade-in">
+                <img src="https://kimi-web-img.moonshot.cn/img/maamshoes.com/1f505b548db101c7b2874a8cd1080e3aad4b7f9f.jpg" alt="Pink Elegant Heels" class="product-image">
+                <div class="product-info">
+                    <p class="product-category">The Statement</p>
+                    <h3 class="product-name">Blush Velvet Heels</h3>
+                    <p class="product-price">$295.00</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Jacket -->
+            <div class="product-card fade-in">
+                <img src="https://kimi-web-img.moonshot.cn/img/provamoda.ai/1113e0269a18ab32e6be67baccad0373157e4243" alt="Elegant Leather Jacket" class="product-image">
+                <div class="product-info">
+                    <p class="product-category">The Edge</p>
+                    <h3 class="product-name">Noir Leather Jacket</h3>
+                    <p class="product-price">$650.00</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Sunglasses -->
+            <div class="product-card fade-in">
+                <img src="https://kimi-web-img.moonshot.cn/img/img.freepik.com/84c5f513ac842d4ce5104bcddd06891d2d2760cb.jpg" alt="Pink Heart Sunglasses" class="product-image">
+                <div class="product-info">
+                    <p class="product-category">The Accent</p>
+                    <h3 class="product-name">Rose Gold Hearts</h3>
+                    <p class="product-price">$175.00</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p class="footer-logo">Bloom & Grace</p>
+        <p class="footer-text">Where elegance meets eternity</p>
+        <div class="social-links">
+            <a href="#">✿</a>
+            <a href="#">❀</a>
+            <a href="#">❁</a>
+        </div>
+        <p style="margin-top: 30px; color: #aaa; font-size: 0.9rem;">© 2026 Bloom & Grace. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add to cart interaction
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const originalText = this.textContent;
+                this.textContent = 'Added ✓';
+                this.style.background = '#d4a5a5';
+                this.style.color = 'white';
+                
+                setTimeout(() => {
+                    this.textContent = originalText;
+                    this.style.background = 'transparent';
+                    this.style.color = '#d4a5a5';
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
