@@ -419,15 +419,6 @@
       letter-spacing: 2px;
     }
 
-    /* ── Hero Logo ── */
-    .hero-logo {
-      width: clamp(160px, 28vw, 280px);
-      height: auto;
-      margin-bottom: 24px;
-      animation: fadeInUp 1s ease both;
-      filter: drop-shadow(0 8px 28px rgba(212,167,167,0.35));
-    }
-
     /* ── Collection Section ── */
     .collection { padding: 100px 40px; max-width: 1380px; margin: 0 auto; }
     .section-header { text-align: center; margin-bottom: 70px; }
@@ -555,13 +546,7 @@
 
   <!-- Navigation -->
   <nav>
-    <a href="#home" class="logo">
-      <img
-        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/background-removed-background-removed-7BrkddXLM7EH5sQI8NvgAeR2VyGCuv.png"
-        alt="Miss P Boutique logo"
-        style="height: 52px; width: auto; display: block; filter: drop-shadow(0 2px 8px rgba(212,167,167,0.3));"
-      />
-    </a>
+    <a href="#home" class="logo">Miss P boutique</a>
     <ul class="nav-links">
       <li><a href="#home">Home</a></li>
       <li><a href="#collection">Collection</a></li>
@@ -583,7 +568,6 @@
     <section class="hero" id="home">
       <div class="hero-content">
         <p class="hero-subtitle">Welcome to</p>
-        <div class="hero-logo" style="font-family: 'Great Vibes', cursive; font-size: clamp(2.8rem, 6vw, 4.8rem); color: #d4a5a5; letter-spacing: 2px; margin-bottom: 8px;">Miss P boutique</div>
         <h1 class="hero-title">Elegance &amp; <em>Grace</em></h1>
         <p class="hero-description">
           Discover our curated collection of timeless pieces, where every thread tells a story of sophistication and feminine charm.
@@ -592,6 +576,7 @@
       </div>
     </section>
 
+  
     <!-- Dress Collection -->
     <section class="collection" id="collection" aria-labelledby="collection-title">
       <div class="section-header fade-in">
@@ -852,8 +837,36 @@
 
     // ── Go to checkout ──
     function goToCheckout() {
+      if (cart.length === 0) return;
+      
+      // Build WhatsApp message
+      var message = '*New Order from Miss P boutique*\n\n';
+      message += '*Items:*\n';
+      
+      cart.forEach(function(item, index) {
+        message += (index + 1) + '. ' + item.name + '\n';
+        message += '   Category: ' + item.category + '\n';
+        message += '   Price: ' + formatPrice(item.price) + '\n';
+        message += '   Quantity: ' + item.qty + '\n';
+        message += '   Subtotal: ' + formatPrice(item.price * item.qty) + '\n\n';
+      });
+      
+      var totalQty = cart.reduce(function(s, i) { return s + i.qty; }, 0);
+      var totalPrice = cart.reduce(function(s, i) { return s + i.price * i.qty; }, 0);
+      
+      message += '*Order Summary:*\n';
+      message += 'Total Items: ' + totalQty + '\n';
+      message += '*Total Amount: ' + formatPrice(totalPrice) + '*\n\n';
+      message += 'Please confirm my order. Thank you!';
+      
+      // Encode message for URL
+      var encodedMessage = encodeURIComponent(message);
+      
+      // Open WhatsApp with pre-filled message
+      var whatsappUrl = 'https://wa.me/27736538292?text=' + encodedMessage;
+      window.open(whatsappUrl, '_blank');
+      
       saveCart();
-      window.location.href = 'checkout.html';
     }
 
     // ── Scroll fade-in ──
