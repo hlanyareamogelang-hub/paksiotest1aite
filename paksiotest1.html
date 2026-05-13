@@ -39,6 +39,16 @@
       text-decoration: none;
       letter-spacing: 2px;
     }
+    .logo-img-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .nav-logo-img {
+      height: 56px;
+      width: auto;
+      object-fit: contain;
+    }
     .nav-links { display: flex; gap: 40px; list-style: none; }
     .nav-links a {
       text-decoration: none;
@@ -59,7 +69,6 @@
     .nav-links a:hover { color: #d4a5a5; }
     .nav-links a:hover::after { width: 100%; }
 
-    /* Cart button */
     .cart-btn {
       position: relative;
       display: flex;
@@ -190,7 +199,14 @@
       font-size: 0.95rem;
       color: #5a4a4a;
       font-weight: 600;
-      margin: 3px 0 4px;
+      margin: 3px 0 2px;
+    }
+    .cart-item-size {
+      font-size: 0.82rem;
+      color: #d4a5a5;
+      font-style: italic;
+      margin-bottom: 2px;
+      letter-spacing: 0.5px;
     }
     .cart-item-price {
       font-size: 0.9rem;
@@ -284,6 +300,184 @@
       box-shadow: none;
     }
 
+    /* ── Name Modal ── */
+    .name-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(74,58,58,0.5);
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .name-modal-overlay.open { opacity: 1; pointer-events: all; }
+
+    .name-modal {
+      background: #fdf8f5;
+      background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+      border-radius: 24px;
+      padding: 50px 44px 44px;
+      max-width: 460px;
+      width: 100%;
+      box-shadow: 0 24px 80px rgba(212,167,167,0.35);
+      border: 1px solid rgba(212,167,167,0.25);
+      text-align: center;
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      position: relative;
+    }
+    .name-modal-overlay.open .name-modal { transform: translateY(0) scale(1); }
+
+    @media (max-width: 768px) {
+      .name-modal-overlay {
+        align-items: flex-end;
+        padding: 0;
+      }
+      .name-modal {
+        border-radius: 22px 22px 0 0;
+        padding: 28px 24px 32px;
+        max-width: 100%;
+        transform: translateY(40px);
+      }
+      .name-modal-overlay.open .name-modal { transform: translateY(0); }
+      .name-modal-icon { font-size: 1.6rem; margin-bottom: 2px; }
+      .name-modal-title { font-size: 1.25rem; margin-bottom: 4px; }
+      .name-modal-subtitle { font-size: 0.9rem; margin-bottom: 20px; }
+      .name-field-group { gap: 12px; margin-bottom: 18px; }
+      .name-field label { font-size: 0.78rem; margin-bottom: 5px; }
+      .name-field input { padding: 10px 16px; font-size: 1rem; }
+      .name-modal-save { padding: 12px 24px; font-size: 0.98rem; }
+    }
+
+    .name-modal-close {
+      position: absolute;
+      top: 16px; right: 20px;
+      background: none; border: none;
+      cursor: pointer;
+      color: #b8a0a0;
+      font-size: 1.6rem;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+    .name-modal-close:hover { color: #d4a5a5; }
+
+    .name-modal-icon {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.2rem;
+      color: #d4a5a5;
+      margin-bottom: 6px;
+    }
+    .name-modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: #5a4a4a;
+      font-weight: 400;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .name-modal-subtitle {
+      font-size: 1rem;
+      color: #8b7070;
+      font-style: italic;
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+
+    .name-field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 28px;
+      text-align: left;
+    }
+    .name-field label {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.88rem;
+      color: #8b6b6b;
+      letter-spacing: 1px;
+      margin-bottom: 7px;
+      text-transform: uppercase;
+    }
+    .name-field input {
+      width: 100%;
+      padding: 13px 18px;
+      border: 1.5px solid rgba(212,167,167,0.4);
+      border-radius: 50px;
+      background: rgba(255,255,255,0.8);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      color: #5a4a4a;
+      outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .name-field input:focus {
+      border-color: #d4a5a5;
+      box-shadow: 0 0 0 3px rgba(212,167,167,0.15);
+    }
+    .name-field input::placeholder { color: #c4afaf; font-style: italic; }
+    .name-field input.error { border-color: #c98080; }
+
+    .name-error-msg {
+      font-size: 0.88rem;
+      color: #c98080;
+      font-style: italic;
+      margin-top: -10px;
+      margin-bottom: 4px;
+      display: none;
+      padding-left: 18px;
+    }
+    .name-error-msg.show { display: block; }
+
+    .name-modal-save {
+      width: 100%;
+      padding: 14px 28px;
+      background: linear-gradient(135deg, #d4a5a5, #c99595);
+      color: #fff;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      letter-spacing: 2px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(212,167,167,0.35);
+      transition: all 0.3s ease;
+    }
+    .name-modal-save:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(212,167,167,0.45); }
+
+    /* Customer name display in cart footer */
+    .cart-customer-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.88rem;
+      color: #8b6b6b;
+      font-style: italic;
+      margin-bottom: 14px;
+      text-align: center;
+      letter-spacing: 0.5px;
+    }
+    .cart-customer-name span {
+      color: #d4a5a5;
+      font-style: normal;
+      font-weight: 600;
+    }
+    .change-name-link {
+      background: none; border: none;
+      color: #c4a4a4;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.82rem;
+      font-style: italic;
+      cursor: pointer;
+      text-decoration: underline;
+      margin-left: 6px;
+      padding: 0;
+      transition: color 0.2s;
+    }
+    .change-name-link:hover { color: #d4a5a5; }
+
     /* ── Floating Petals ── */
     .petals-container {
       position: fixed;
@@ -326,6 +520,7 @@
       position: relative;
     }
     .hero-content { max-width: 780px; animation: fadeInUp 1.4s ease both; }
+    .hero-brand-name { font-family: 'Great Vibes', cursive; font-size: 3.4rem; color: #5a4a4a; letter-spacing: 2px; margin-bottom: 4px; }
     .hero-subtitle { font-family: 'Great Vibes', cursive; font-size: 2.8rem; color: #d4a5a5; margin-bottom: 8px; }
     .hero-title {
       font-family: 'Playfair Display', serif;
@@ -362,10 +557,6 @@
       background: rgba(255,255,255,0.7);
       position: relative;
     }
-    .quote-section::before,
-    .quote-section::after { content: '&#10086;'; font-size: 2.5rem; color: #d4a5a5; opacity: 0.5; display: block; text-align: center; }
-    .quote-section::before { margin-bottom: 24px; }
-    .quote-section::after  { margin-top: 24px; }
     .quote-text { font-family: 'Great Vibes', cursive; font-size: 2.8rem; color: #5a4a4a; max-width: 760px; margin: 0 auto; line-height: 1.5; }
     .quote-author { margin-top: 16px; font-size: 1.1rem; color: #8b6b6b; font-style: italic; }
 
@@ -400,10 +591,7 @@
       box-shadow: 0 4px 18px rgba(37,211,102,0.35);
       transition: all 0.4s ease;
     }
-    .whatsapp-btn svg {
-      width: 24px;
-      height: 24px;
-    }
+    .whatsapp-btn svg { width: 24px; height: 24px; }
     .whatsapp-btn:hover {
       background: transparent;
       border-color: #25D366;
@@ -455,6 +643,63 @@
     .product-category { font-family: 'Great Vibes', cursive; font-size: 1.45rem; color: #d4a5a5; margin-bottom: 4px; }
     .product-name { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #5a4a4a; font-weight: 600; margin-bottom: 8px; }
     .product-price { font-size: 1.2rem; color: #8b6b6b; font-style: italic; margin-bottom: 20px; }
+
+    /* ── Size Selector ── */
+    .size-selector {
+      margin-bottom: 16px;
+    }
+    .size-label {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.8rem;
+      color: #8b6b6b;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .size-options {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+    .size-option {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(212,167,167,0.45);
+      background: transparent;
+      color: #8b6b6b;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.92rem;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .size-option:hover {
+      border-color: #d4a5a5;
+      color: #d4a5a5;
+      background: rgba(212,167,167,0.08);
+    }
+    .size-option.selected {
+      background: #d4a5a5;
+      border-color: #d4a5a5;
+      color: #fff;
+      box-shadow: 0 3px 12px rgba(212,167,167,0.4);
+    }
+
+    /* Size required hint */
+    .size-hint {
+      font-size: 0.8rem;
+      color: #c98080;
+      font-style: italic;
+      margin-top: 6px;
+      display: none;
+      letter-spacing: 0.3px;
+    }
+    .size-hint.show { display: block; }
+
     .add-to-cart {
       width: 100%;
       padding: 12px 28px;
@@ -536,6 +781,10 @@
       </div>
     </div>
     <div class="cart-drawer-footer">
+      <div class="cart-customer-name" id="cartCustomerName" style="display:none">
+        Ordering for: <span id="cartNameDisplay"></span>
+        <button class="change-name-link" onclick="openNameModal(true)">change</button>
+      </div>
       <div class="cart-totals">
         <span class="cart-total-label">Total</span>
         <span class="cart-total-value" id="cartTotal">R0.00</span>
@@ -544,9 +793,33 @@
     </div>
   </aside>
 
+  <!-- Name Modal -->
+  <div class="name-modal-overlay" id="nameModalOverlay">
+    <div class="name-modal" role="dialog" aria-modal="true" aria-labelledby="nameModalTitle">
+      <button class="name-modal-close" id="nameModalClose" onclick="closeNameModal()" aria-label="Close">&times;</button>
+      <div class="name-modal-icon">Miss P</div>
+      <h2 class="name-modal-title" id="nameModalTitle">Before You Shop</h2>
+      <p class="name-modal-subtitle">Please share your name so we can personalise your order for you.</p>
+      <div class="name-field-group">
+        <div class="name-field">
+          <label for="firstNameInput">First Name</label>
+          <input type="text" id="firstNameInput" placeholder="e.g. Amara" autocomplete="given-name" />
+        </div>
+        <div class="name-field">
+          <label for="lastNameInput">Last Name</label>
+          <input type="text" id="lastNameInput" placeholder="e.g. Dlamini" autocomplete="family-name" />
+        </div>
+        <p class="name-error-msg" id="nameError">Please enter both your first and last name to continue.</p>
+      </div>
+      <button class="name-modal-save" onclick="saveName()">Continue Shopping</button>
+    </div>
+  </div>
+
   <!-- Navigation -->
   <nav>
-    <a href="#home" class="logo">Miss P boutique</a>
+    <a href="#home" class="logo-img-link" aria-label="Miss P boutique home">
+      <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20.04.2026_12.29.19_REC-removebg-preview-OPyQerjcMycmmTCZCJNZ33dkSk1q1x.png" alt="Miss P boutique logo" class="nav-logo-img" />
+    </a>
     <ul class="nav-links">
       <li><a href="#home">Home</a></li>
       <li><a href="#collection">Collection</a></li>
@@ -567,6 +840,7 @@
     <!-- Hero -->
     <section class="hero" id="home">
       <div class="hero-content">
+        <p class="hero-brand-name">Miss P boutique</p>
         <p class="hero-subtitle">Welcome to</p>
         <h1 class="hero-title">Elegance &amp; <em>Grace</em></h1>
         <p class="hero-description">
@@ -576,7 +850,6 @@
       </div>
     </section>
 
-  
     <!-- Dress Collection -->
     <section class="collection" id="collection" aria-labelledby="collection-title">
       <div class="section-header fade-in">
@@ -598,6 +871,16 @@
             <p class="product-category">The Romantic</p>
             <h3 class="product-name">Gardenia Tulle Gown</h3>
             <p class="product-price">R485.00</p>
+            <div class="size-selector">
+              <span class="size-label">Select Size</span>
+              <div class="size-options">
+                <button class="size-option" data-size="S" onclick="selectSize(this)">S</button>
+                <button class="size-option" data-size="M" onclick="selectSize(this)">M</button>
+                <button class="size-option" data-size="L" onclick="selectSize(this)">L</button>
+                <button class="size-option" data-size="XL" onclick="selectSize(this)">XL</button>
+              </div>
+              <p class="size-hint">Please select a size</p>
+            </div>
             <button class="add-to-cart" onclick="addToCart(this)">Add to Cart</button>
           </div>
         </article>
@@ -614,6 +897,16 @@
             <p class="product-category">The Statement</p>
             <h3 class="product-name">Blush Rose Couture</h3>
             <p class="product-price">R1,250.00</p>
+            <div class="size-selector">
+              <span class="size-label">Select Size</span>
+              <div class="size-options">
+                <button class="size-option" data-size="S" onclick="selectSize(this)">S</button>
+                <button class="size-option" data-size="M" onclick="selectSize(this)">M</button>
+                <button class="size-option" data-size="L" onclick="selectSize(this)">L</button>
+                <button class="size-option" data-size="XL" onclick="selectSize(this)">XL</button>
+              </div>
+              <p class="size-hint">Please select a size</p>
+            </div>
             <button class="add-to-cart" onclick="addToCart(this)">Add to Cart</button>
           </div>
         </article>
@@ -630,6 +923,16 @@
             <p class="product-category">The Classic</p>
             <h3 class="product-name">Caramel Cascade Dress</h3>
             <p class="product-price">R890.00</p>
+            <div class="size-selector">
+              <span class="size-label">Select Size</span>
+              <div class="size-options">
+                <button class="size-option" data-size="S" onclick="selectSize(this)">S</button>
+                <button class="size-option" data-size="M" onclick="selectSize(this)">M</button>
+                <button class="size-option" data-size="L" onclick="selectSize(this)">L</button>
+                <button class="size-option" data-size="XL" onclick="selectSize(this)">XL</button>
+              </div>
+              <p class="size-hint">Please select a size</p>
+            </div>
             <button class="add-to-cart" onclick="addToCart(this)">Add to Cart</button>
           </div>
         </article>
@@ -646,6 +949,16 @@
             <p class="product-category">The Ethereal</p>
             <h3 class="product-name">Mocha Satin Halter</h3>
             <p class="product-price">R345.00</p>
+            <div class="size-selector">
+              <span class="size-label">Select Size</span>
+              <div class="size-options">
+                <button class="size-option" data-size="S" onclick="selectSize(this)">S</button>
+                <button class="size-option" data-size="M" onclick="selectSize(this)">M</button>
+                <button class="size-option" data-size="L" onclick="selectSize(this)">L</button>
+                <button class="size-option" data-size="XL" onclick="selectSize(this)">XL</button>
+              </div>
+              <p class="size-hint">Please select a size</p>
+            </div>
             <button class="add-to-cart" onclick="addToCart(this)">Add to Cart</button>
           </div>
         </article>
@@ -662,6 +975,16 @@
             <p class="product-category">The Glamour</p>
             <h3 class="product-name">Golden Hour Gown</h3>
             <p class="product-price">R1,650.00</p>
+            <div class="size-selector">
+              <span class="size-label">Select Size</span>
+              <div class="size-options">
+                <button class="size-option" data-size="S" onclick="selectSize(this)">S</button>
+                <button class="size-option" data-size="M" onclick="selectSize(this)">M</button>
+                <button class="size-option" data-size="L" onclick="selectSize(this)">L</button>
+                <button class="size-option" data-size="XL" onclick="selectSize(this)">XL</button>
+              </div>
+              <p class="size-hint">Please select a size</p>
+            </div>
             <button class="add-to-cart" onclick="addToCart(this)">Add to Cart</button>
           </div>
         </article>
@@ -678,6 +1001,16 @@
             <p class="product-category">The Chic</p>
             <h3 class="product-name">Emerald Trench Dress</h3>
             <p class="product-price">R1,150.00</p>
+            <div class="size-selector">
+              <span class="size-label">Select Size</span>
+              <div class="size-options">
+                <button class="size-option" data-size="S" onclick="selectSize(this)">S</button>
+                <button class="size-option" data-size="M" onclick="selectSize(this)">M</button>
+                <button class="size-option" data-size="L" onclick="selectSize(this)">L</button>
+                <button class="size-option" data-size="XL" onclick="selectSize(this)">XL</button>
+              </div>
+              <p class="size-hint">Please select a size</p>
+            </div>
             <button class="add-to-cart" onclick="addToCart(this)">Add to Cart</button>
           </div>
         </article>
@@ -717,6 +1050,11 @@
   </footer>
 
   <script>
+    // ── Customer Name State ──
+    var customerFirstName = localStorage.getItem('mp_first_name') || '';
+    var customerLastName  = localStorage.getItem('mp_last_name')  || '';
+    var nameModalPendingAction = null; // callback to run after name saved
+
     // ── Cart State ──
     var cart = JSON.parse(localStorage.getItem('bg_cart') || '[]');
 
@@ -726,6 +1064,79 @@
 
     function formatPrice(num) {
       return 'R' + Number(num).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
+    // ── Name Modal ──
+    function openNameModal(isChange, onSuccess) {
+      nameModalPendingAction = onSuccess || null;
+      // Pre-fill if editing
+      document.getElementById('firstNameInput').value = customerFirstName;
+      document.getElementById('lastNameInput').value  = customerLastName;
+      document.getElementById('nameError').classList.remove('show');
+      document.getElementById('firstNameInput').classList.remove('error');
+      document.getElementById('lastNameInput').classList.remove('error');
+
+      // Show/hide close button: only allow closing if name already set or it's a change
+      var closeBtn = document.getElementById('nameModalClose');
+      if (isChange || (customerFirstName && customerLastName)) {
+        closeBtn.style.display = 'block';
+      } else {
+        closeBtn.style.display = 'none';
+      }
+
+      document.getElementById('nameModalOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      setTimeout(function() { document.getElementById('firstNameInput').focus(); }, 300);
+    }
+
+    function closeNameModal() {
+      document.getElementById('nameModalOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+      nameModalPendingAction = null;
+    }
+
+    function saveName() {
+      var first = document.getElementById('firstNameInput').value.trim();
+      var last  = document.getElementById('lastNameInput').value.trim();
+      var hasError = false;
+
+      document.getElementById('firstNameInput').classList.toggle('error', !first);
+      document.getElementById('lastNameInput').classList.toggle('error', !last);
+
+      if (!first || !last) {
+        document.getElementById('nameError').classList.add('show');
+        return;
+      }
+
+      customerFirstName = first;
+      customerLastName  = last;
+      localStorage.setItem('mp_first_name', first);
+      localStorage.setItem('mp_last_name',  last);
+
+      closeNameModal();
+      renderCart();
+
+      if (nameModalPendingAction) {
+        nameModalPendingAction();
+        nameModalPendingAction = null;
+      }
+    }
+
+    // Allow Enter key in name inputs
+    document.getElementById('firstNameInput').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') document.getElementById('lastNameInput').focus();
+    });
+    document.getElementById('lastNameInput').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') saveName();
+    });
+
+    // ── Size Selector ──
+    function selectSize(btn) {
+      var options = btn.closest('.size-options').querySelectorAll('.size-option');
+      options.forEach(function(o) { o.classList.remove('selected'); });
+      btn.classList.add('selected');
+      // Hide size hint when a size is picked
+      btn.closest('.size-selector').querySelector('.size-hint').classList.remove('show');
     }
 
     // ── Open / Close drawer ──
@@ -743,17 +1154,38 @@
     // ── Add item ──
     function addToCart(button) {
       var card = button.closest('.product-card');
+
+      // Check size selected
+      var selectedSizeBtn = card.querySelector('.size-option.selected');
+      if (!selectedSizeBtn) {
+        card.querySelector('.size-hint').classList.add('show');
+        // Shake the size selector
+        var sizeOptions = card.querySelector('.size-options');
+        sizeOptions.style.animation = 'none';
+        sizeOptions.offsetHeight; // reflow
+        sizeOptions.style.animation = 'shakeIt 0.4s ease';
+        return;
+      }
+      var size = selectedSizeBtn.dataset.size;
+
+      // Check customer name
+      if (!customerFirstName || !customerLastName) {
+        openNameModal(false, function() { addToCart(button); });
+        return;
+      }
+
       var id       = card.dataset.id;
       var name     = card.dataset.name;
       var category = card.dataset.category;
       var price    = parseFloat(card.dataset.price);
       var image    = card.dataset.image;
+      var cartKey  = id + '-' + size;
 
-      var existing = cart.find(function(i) { return i.id === id; });
+      var existing = cart.find(function(i) { return i.cartKey === cartKey; });
       if (existing) {
         existing.qty += 1;
       } else {
-        cart.push({ id: id, name: name, category: category, price: price, image: image, qty: 1 });
+        cart.push({ cartKey: cartKey, id: id, name: name, category: category, price: price, image: image, size: size, qty: 1 });
       }
       saveCart();
       renderCart();
@@ -769,18 +1201,18 @@
     }
 
     // ── Remove item ──
-    function removeItem(id) {
-      cart = cart.filter(function(i) { return i.id !== id; });
+    function removeItem(cartKey) {
+      cart = cart.filter(function(i) { return i.cartKey !== cartKey; });
       saveCart();
       renderCart();
     }
 
     // ── Change quantity ──
-    function changeQty(id, delta) {
-      var item = cart.find(function(i) { return i.id === id; });
+    function changeQty(cartKey, delta) {
+      var item = cart.find(function(i) { return i.cartKey === cartKey; });
       if (!item) return;
       item.qty += delta;
-      if (item.qty <= 0) { removeItem(id); return; }
+      if (item.qty <= 0) { removeItem(cartKey); return; }
       saveCart();
       renderCart();
     }
@@ -792,6 +1224,8 @@
       var badge       = document.getElementById('cartBadge');
       var totalEl     = document.getElementById('cartTotal');
       var checkoutBtn = document.getElementById('checkoutBtn');
+      var nameRow     = document.getElementById('cartCustomerName');
+      var nameDisplay = document.getElementById('cartNameDisplay');
 
       var totalQty   = cart.reduce(function(s, i) { return s + i.qty; }, 0);
       var totalPrice = cart.reduce(function(s, i) { return s + i.price * i.qty; }, 0);
@@ -806,7 +1240,15 @@
       // Checkout
       checkoutBtn.disabled = cart.length === 0;
 
-      // Remove old item rows (keep the empty state div)
+      // Customer name display
+      if (customerFirstName && customerLastName) {
+        nameDisplay.textContent = customerFirstName + ' ' + customerLastName;
+        nameRow.style.display = 'block';
+      } else {
+        nameRow.style.display = 'none';
+      }
+
+      // Remove old item rows
       list.querySelectorAll('.cart-item').forEach(function(el) { el.remove(); });
 
       if (cart.length === 0) {
@@ -823,14 +1265,15 @@
           '<div class="cart-item-details">' +
             '<p class="cart-item-category">' + item.category + '</p>' +
             '<p class="cart-item-name">' + item.name + '</p>' +
+            '<p class="cart-item-size">Size: ' + item.size + '</p>' +
             '<p class="cart-item-price">' + formatPrice(item.price) + ' each</p>' +
             '<div class="cart-item-qty">' +
-              '<button class="qty-btn" onclick="changeQty(\'' + item.id + '\',-1)" aria-label="Decrease">&minus;</button>' +
+              '<button class="qty-btn" onclick="changeQty(\'' + item.cartKey + '\',-1)" aria-label="Decrease">&minus;</button>' +
               '<span class="qty-value">' + item.qty + '</span>' +
-              '<button class="qty-btn" onclick="changeQty(\'' + item.id + '\',1)" aria-label="Increase">&plus;</button>' +
+              '<button class="qty-btn" onclick="changeQty(\'' + item.cartKey + '\',1)" aria-label="Increase">&plus;</button>' +
             '</div>' +
           '</div>' +
-          '<button class="cart-item-remove" onclick="removeItem(\'' + item.id + '\')" aria-label="Remove ' + item.name + '">&times;</button>';
+          '<button class="cart-item-remove" onclick="removeItem(\'' + item.cartKey + '\')" aria-label="Remove ' + item.name + '">&times;</button>';
         list.appendChild(div);
       });
     }
@@ -838,36 +1281,38 @@
     // ── Go to checkout ──
     function goToCheckout() {
       if (cart.length === 0) return;
-      
-      // Build WhatsApp message
-      var message = '*New Order from Miss P boutique*\n\n';
-      message += '*Items:*\n';
-      
+
+      var message = '*New Order from Miss P boutique* \u2728\n\n';
+      message += '*Customer Details:*\n';
+      message += 'Name: ' + customerFirstName + ' ' + customerLastName + '\n\n';
+      message += '*Items Ordered:*\n';
+
       cart.forEach(function(item, index) {
         message += (index + 1) + '. ' + item.name + '\n';
         message += '   Category: ' + item.category + '\n';
+        message += '   Size: ' + item.size + '\n';
         message += '   Price: ' + formatPrice(item.price) + '\n';
         message += '   Quantity: ' + item.qty + '\n';
         message += '   Subtotal: ' + formatPrice(item.price * item.qty) + '\n\n';
       });
-      
-      var totalQty = cart.reduce(function(s, i) { return s + i.qty; }, 0);
+
+      var totalQty   = cart.reduce(function(s, i) { return s + i.qty; }, 0);
       var totalPrice = cart.reduce(function(s, i) { return s + i.price * i.qty; }, 0);
-      
+
       message += '*Order Summary:*\n';
       message += 'Total Items: ' + totalQty + '\n';
       message += '*Total Amount: ' + formatPrice(totalPrice) + '*\n\n';
       message += 'Please confirm my order. Thank you!';
-      
-      // Encode message for URL
+
       var encodedMessage = encodeURIComponent(message);
-      
-      // Open WhatsApp with pre-filled message
-      var whatsappUrl = 'https://wa.me/27736538292?text=' + encodedMessage;
-      window.open(whatsappUrl, '_blank');
-      
+      window.open('https://wa.me/27736538292?text=' + encodedMessage, '_blank');
       saveCart();
     }
+
+    // ── Shake animation for size selector ──
+    var shakeStyle = document.createElement('style');
+    shakeStyle.textContent = '@keyframes shakeIt { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-5px)} 40%{transform:translateX(5px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }';
+    document.head.appendChild(shakeStyle);
 
     // ── Scroll fade-in ──
     (function() {
@@ -877,8 +1322,13 @@
       document.querySelectorAll('.fade-in').forEach(function(el) { obs.observe(el); });
     })();
 
-    // Init on load
+    // Init
     renderCart();
+
+    // If name not yet set, show modal on first visit (slight delay for page load)
+    if (!customerFirstName || !customerLastName) {
+      setTimeout(function() { openNameModal(false); }, 800);
+    }
   </script>
 </body>
 </html>
